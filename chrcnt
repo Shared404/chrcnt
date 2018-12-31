@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+'''
+counts characters in a string by converting instring to a list,
+converting characters in the list to unicode values, sorting the
+list, and then counting how many consecutive characters there 
+are. I'm sure this is not the most efficient way, and if someone
+would like to show me a better way, I would greatly appreciate it.
+'''
+def chrCnt(instring):
+	#convert string to list
+	outlist = list(instring)
+	#iterate through string to convert to unicode values
+	i = 0
+	for i in range(len(outlist)):
+		outlist[i] = ord(outlist[i])
+	#sort list
+	outlist.sort()
+	#iterates through list
+	for i in range(len(outlist)):
+		#if outlist[i] is the first in the list or doesn't equal 
+		#the previous value, begin tracking the new value with 
+		#char and charCount
+		if i == 0 or outlist[i] != outlist[i-1]:
+			char = chr(outlist[i])
+			charCount = 1
+		#if outlist[i] is not the first value, and matches the 
+		#previous value, give it's count +1 
+		else:
+			charCount += 1
+		#if outlist[i] is not the last value, and does not equal
+		#the next value, print the current values char and count
+		if i < (len(outlist) - 1):
+			if outlist[i] != outlist[i + 1]:
+				print(char + ":" + str(charCount)) 
+#open file
+wantedfile = raw_input("File> ")
+f = open(wantedfile, "r")
+#call function
+chrCnt(f.read())
